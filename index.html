@@ -825,8 +825,9 @@ a:hover { color: var(--blue-dark); }
   <!-- image-optimization — lazy=eager sur hero, srcset en prod -->
   <img
     class="hero-img"
-    src="maxresdefault.webp"
-    alt="Enfant soutenu par Handicap International Belgium, souriant et entouré de mains bienveillantes"
+    src="Homepage_banner_INDO__1_ (1).webp"
+    alt="Enfants soutenus par Handicap International Belgium"
+    id="hero-bg-img"
     loading="eager"
     fetchpriority="high"
   >
@@ -1280,6 +1281,12 @@ function openTab(id) {
     p.classList.toggle('on', p.id === 'p-' + id)
   );
   if (id === 'petition') startPetCounter();
+  const img = document.getElementById('hero-bg-img');
+  if (img) {
+    img.src = id === 'petition'
+      ? 'YEMEN_Yusef_Hodaydah_DSC09560_crop.webp'
+      : 'Homepage_banner_INDO__1_ (1).webp';
+  }
 }
 
 /* ── Quiz ── */
