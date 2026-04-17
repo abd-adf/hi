@@ -124,7 +124,7 @@ a:hover { color: var(--blue-dark); }
 ═══════════════════════════════════════ */
 .hero {
   position: relative;
-  min-height: 600px;
+  height: 680px;
   display: flex; align-items: stretch;
   overflow: hidden;
   background: #0d2a3e;
@@ -134,7 +134,7 @@ a:hover { color: var(--blue-dark); }
 .hero-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; object-position: center 25%;
+  object-fit: cover; object-position: 30% 25%;
 }
 /* Overlay léger */
 .hero-overlay {
@@ -150,7 +150,7 @@ a:hover { color: var(--blue-dark); }
 .hero-inner {
   position: relative; z-index: var(--z-overlay);
   max-width: 1280px; margin: 0 auto; width: 100%;
-  padding: 5.5rem 3rem 5.5rem 1.5rem;
+  padding: 5.5rem 5rem 5.5rem 1.5rem;
   display: grid;
   grid-template-columns: 1fr 480px;
   gap: 4rem;
@@ -229,7 +229,7 @@ a:hover { color: var(--blue-dark); }
 .form-card-head p {
   font-size: .82rem; color: rgba(255,255,255,.8); line-height: 1.4;
 }
-.form-card-body { padding: 1.25rem 1.4rem; min-height: 420px; }
+.form-card-body { padding: 1.25rem 1.4rem; }
 
 /* Onglets campagne */
 .camp-tabs {
@@ -260,10 +260,9 @@ a:hover { color: var(--blue-dark); }
 }
 .camp-tab-icon { width: 18px; height: 18px; }
 
-/* Panneaux de campagne — hauteur fixe, zéro reflow */
+/* Panneaux de campagne — zéro reflow */
 .camp-panels-wrap {
   position: relative;
-  min-height: 420px;
 }
 .camp-panel {
   visibility: hidden;
@@ -276,7 +275,7 @@ a:hover { color: var(--blue-dark); }
 .camp-panel.on {
   visibility: visible;
   opacity: 1;
-  position: absolute;
+  position: relative;
   pointer-events: auto;
 }
 
