@@ -1283,9 +1283,12 @@ function openTab(id) {
   if (id === 'petition') startPetCounter();
   const img = document.getElementById('hero-bg-img');
   if (img) {
-    img.src = id === 'petition'
-      ? 'YEMEN_Yusef_Hodaydah_DSC09560_crop.webp'
-      : 'Homepage_banner_INDO__1_ (1).webp';
+    const photos = {
+      quiz:      'Homepage_banner_INDO__1_ (1).webp',
+      petition:  'YEMEN_Yusef_Hodaydah_DSC09560_crop.webp',
+      testament: 'maxresdefault.webp'
+    };
+    img.src = photos[id] || 'Homepage_banner_INDO__1_ (1).webp';
   }
 }
 
