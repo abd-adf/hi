@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handicap International Belgique — Agissez avec nous</title>
+  <meta name="description" content="Participez à la campagne d'Handicap International Belgique pour un monde plus inclusif.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+/* ─────────────────────────────────────
+   DESIGN TOKENS — Handicap International Belgium officiel
+───────────────────────────────────── */
+:root {
+  --blue:        #0077c8;
+  --blue-dark:   #005a9e;
+  --blue-light:  #e6f3fb;
+  --orange:      #f16522;
+  --white:       #ffffff;
+  --gray-light:  #f5f5f5;
+  --gray-text:   #333333;
+  --gray-mid:    #666666;
+  --gray-border: #dddddd;
+  --black:       #1a1a1a;
+
+  --font: 'Nunito', sans-serif;
+  --ease: 0.2s ease;
+  --r:    4px;
+  --rc:   8px;
+
+  /* z-index scale */
+  --z-base:    10;
+  --z-overlay: 20;
+  --z-header:  30;
+  --z-toast:   50;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--gray-text);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: var(--blue); text-decoration: underline; }
+a:hover { color: var(--blue-dark); }
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ─── SKIP LINK ─── */
+.skip {
+  position: absolute; top: -100%; left: 1rem;
+  background: var(--blue); color: #fff;
+  padding: .4rem .9rem; border-radius: 0 0 var(--r) var(--r);
+  font-size: .875rem; font-weight: 700; z-index: var(--z-toast);
+  transition: top var(--ease);
+  text-decoration: none;
+}
+.skip:focus { top: 0; }
+
+/* ─── FOCUS RING ─── */
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+.header {
+  position: sticky; top: 0; z-index: var(--z-header);
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+/* CTA "Je fais un don" */
+.btn-don {
+  background: var(--orange); color: #fff !important;
+  padding: .55rem 1.35rem; border-radius: var(--r);
+  font-weight: 700; font-size: .82rem; text-transform: uppercase;
+  letter-spacing: .06em; text-decoration: none !important;
+  min-height: 44px; display: flex; align-items: center;
+  transition: background var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-don:hover { background: #d4551a !important; }
+
+/* Barre header unique : logo gauche + don droite */
+.header-brand {
+  max-width: 1200px; margin: 0 auto;
+  padding: .7rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo-link {
+  display: flex; align-items: center; gap: .75rem;
+  text-decoration: none; cursor: pointer;
+}
+.logo-link:hover { text-decoration: none; }
+.logo-img { height: 70px; width: auto; }
+.logo-text {
+  font-size: .88rem; font-weight: 700; color: var(--black);
+  line-height: 1.25;
+}
+.logo-text span { display: block; font-weight: 400; font-size: .73rem; letter-spacing: .07em; text-transform: uppercase; color: var(--gray-mid); }
+
+/* ═══════════════════════════════════════
+   HERO — pleine largeur, photo + form
+═══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 600px;
+  display: flex; align-items: stretch;
+  overflow: hidden;
+  background: #0d2a3e;
+}
+
+/* Photo terrain */
+.hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 25%;
+}
+/* Overlay léger */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: var(--z-base);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, .08) 0%,
+    rgba(0, 0, 0, .15) 100%
+  );
+}
+
+/* Contenu hero */
+.hero-inner {
+  position: relative; z-index: var(--z-overlay);
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  padding: 5.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1.4fr 400px;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Texte gauche */
+.hero-text { color: var(--white); }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 100px;
+  padding: .3rem .85rem;
+  font-size: .78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: rgba(255,255,255,.9);
+  margin-bottom: 1.25rem;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0;
+}
+
+/* H1 — grand titre immersif sur bloc bleu, signature visuelle HI */
+.hero-h1 {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: -.02em;
+  display: inline;
+}
+/* Chaque ligne du titre enveloppée dans .hl */
+.hl {
+  display: inline;
+  background: var(--blue);
+  color: var(--white);
+  padding: .12em .22em .12em .18em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  line-height: 1.45;
+}
+.hero-h1-wrap {
+  margin-bottom: 1.25rem;
+  display: inline-block;
+  line-height: 1.45;
+}
+
+/* hero-text — centré verticalement */
+.hero-text {
+  align-self: center;
+}
+
+
+/* ─── Formulaire hero (droite) ─── */
+.hero-form-wrap {
+  min-height: 420px;
+}
+.hero-form-card {
+  background: var(--white);
+  border-radius: var(--rc);
+  box-shadow: 0 8px 40px rgba(0,0,0,.28);
+  overflow: hidden;
+}
+.form-card-head {
+  background: var(--blue);
+  padding: 1.1rem 1.4rem;
+}
+.form-card-head h2 {
+  font-weight: 700; font-size: 1.05rem;
+  color: var(--white); line-height: 1.3; margin-bottom: .2rem;
+}
+.form-card-head p {
+  font-size: .82rem; color: rgba(255,255,255,.8); line-height: 1.4;
+}
+.form-card-body { padding: 1.25rem 1.4rem; }
+
+/* Onglets campagne */
+.camp-tabs {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid var(--gray-border);
+  border-radius: var(--r); overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+.camp-tab {
+  all: unset; cursor: pointer;
+  padding: .55rem .4rem;
+  text-align: center;
+  font-family: var(--font); font-weight: 700; font-size: .72rem;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: var(--gray-mid);
+  background: var(--white);
+  border-right: 1px solid var(--gray-border);
+  transition: background var(--ease), color var(--ease);
+  min-height: 44px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .2rem;
+  line-height: 1.2;
+}
+.camp-tab:last-child { border-right: none; }
+.camp-tab:hover { background: var(--blue-light); color: var(--blue); }
+.camp-tab.on {
+  background: var(--blue); color: var(--white);
+}
+.camp-tab-icon { width: 18px; height: 18px; }
+
+/* Panneaux de campagne */
+.camp-panel { display: none; }
+.camp-panel.on { display: block; }
+
+/* ─── Inputs ─── */
+.fg { display: flex; flex-direction: column; gap: .28rem; margin-bottom: .8rem; }
+.fg label {
+  font-size: .75rem; font-weight: 700; color: var(--gray-text);
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.req { color: var(--blue); margin-left: .1em; }
+
+.fg input, .fg select {
+  width: 100%;
+  padding: .6rem .8rem;
+  min-height: 44px;
+  border: 1px solid var(--gray-border);
+  border-radius: var(--r);
+  font-family: var(--font); font-size: .95rem; color: var(--black);
+  background: var(--white); outline: none;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.fg input:focus, .fg select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0,119,200,.14);
+}
+/* error-feedback */
+.fg input.error { border-color: #dc2626; }
+.fg .err-msg { display: none; font-size: .75rem; color: #dc2626; margin-top: .2rem; }
+.fg input.error + .err-msg { display: block; }
+
+.fg input::placeholder { color: #aaa; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-bottom: .8rem; }
+.row2 .fg { margin-bottom: 0; }
+
+/* RGPD */
+.rgpd-wrap {
+  display: flex; align-items: flex-start; gap: .5rem;
+  margin-bottom: 1rem; cursor: pointer;
+}
+.rgpd-wrap input[type="checkbox"] {
+  width: 18px; height: 18px; min-width: 18px; margin-top: .15rem;
+  accent-color: var(--blue); cursor: pointer; flex-shrink: 0;
+}
+.rgpd-text { font-size: .78rem; color: var(--gray-mid); line-height: 1.5; }
+.rgpd-text a { font-size: .78rem; }
+
+/* ─── Boutons ─── */
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+  width: 100%; padding: .8rem 1.25rem;
+  min-height: 44px;
+  background: var(--blue); color: var(--white);
+  font-family: var(--font); font-weight: 700; font-size: .95rem;
+  border: none; border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--ease), opacity var(--ease);
+}
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  padding: .65rem 1.1rem; min-height: 44px;
+  background: transparent; color: var(--blue);
+  font-family: var(--font); font-weight: 700; font-size: .875rem;
+  border: 2px solid var(--blue); border-radius: var(--r);
+  cursor: pointer; text-decoration: none;
+  transition: background var(--ease), color var(--ease);
+}
+.btn-secondary:hover { background: var(--blue); color: var(--white); text-decoration: none; }
+
+.btn-orange {
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+  width: 100%; padding: .8rem 1.25rem; min-height: 44px;
+  background: var(--orange); color: var(--white);
+  font-family: var(--font); font-weight: 700; font-size: .95rem;
+  border: none; border-radius: var(--r);
+  cursor: pointer; text-decoration: none;
+  transition: background var(--ease);
+}
+.btn-orange:hover { background: #d4551a; }
+
+/* ─── Quiz ─── */
+.quiz-progress { margin-bottom: 1.1rem; }
+.quiz-prog-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .75rem; font-weight: 700; color: var(--gray-mid);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: .35rem;
+}
+.quiz-bar {
+  height: 4px; background: var(--gray-border); border-radius: 100px; overflow: hidden;
+}
+.quiz-bar-fill {
+  height: 100%; background: var(--blue); border-radius: 100px; width: 33%;
+  transition: width .4s ease;
+}
+.quiz-q { font-weight: 700; font-size: .95rem; color: var(--black); line-height: 1.45; margin-bottom: .9rem; }
+.choices { display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1rem; }
+.choice {
+  all: unset; cursor: pointer;
+  display: flex; align-items: center; gap: .65rem;
+  border: 1px solid var(--gray-border); border-radius: var(--rc);
+  padding: .6rem .85rem;
+  font-size: .88rem; font-weight: 600; color: var(--gray-text);
+  min-height: 44px;
+  transition: border-color var(--ease), background var(--ease), color var(--ease);
+}
+.choice:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.choice.on { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+.choice-l {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+}
+.quiz-step { display: none; }
+.quiz-step.on { display: block; }
+
+/* ─── Pétition ─── */
+.petition-counter {
+  background: var(--blue); border-radius: var(--rc);
+  padding: 1rem 1.2rem; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.pet-num {
+  font-weight: 700; font-size: 1.9rem; color: var(--white);
+  line-height: 1; white-space: nowrap;
+}
+.pet-label { font-size: .8rem; color: rgba(255,255,255,.78); line-height: 1.45; }
+.pet-label strong { display: block; color: var(--white); font-size: .88rem; margin-bottom: .1rem; }
+.pet-prog-bar { margin-top: .6rem; background: rgba(255,255,255,.2); border-radius: 100px; height: 4px; overflow: hidden; }
+.pet-prog-fill { height: 100%; background: var(--white); border-radius: 100px; width: 0; transition: width 1.5s ease; }
+.petition-quote {
+  background: var(--blue-light); border-left: 3px solid var(--blue);
+  border-radius: 0 var(--rc) var(--rc) 0;
+  padding: .85rem 1rem; margin-bottom: 1rem;
+  font-size: .85rem; line-height: 1.65; color: var(--gray-text);
+}
+.petition-quote strong { color: var(--black); }
+
+/* ─── Testament ─── */
+.testament-intro {
+  background: var(--blue-light); border-radius: var(--rc);
+  padding: 1rem 1.1rem; margin-bottom: 1rem;
+  font-size: .88rem; line-height: 1.7; color: var(--gray-text);
+}
+.testament-intro strong { color: var(--black); }
+.dl-row {
+  display: flex; align-items: center; gap: .8rem;
+  background: var(--gray-light); border: 1px solid var(--gray-border);
+  border-radius: var(--rc); padding: .8rem .9rem; margin-bottom: 1rem;
+}
+.dl-info strong { display: block; font-size: .88rem; font-weight: 700; color: var(--black); }
+.dl-info span { font-size: .75rem; color: var(--gray-mid); }
+.dl-btn { margin-left: auto; flex-shrink: 0; }
+
+/* ─── Succès ─── */
+.success-box {
+  display: none; flex-direction: column; align-items: center;
+  text-align: center; padding: 1.75rem 1rem;
+}
+.success-box.on { display: flex; }
+.success-ico {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .85rem;
+  animation: pop .35s ease both;
+}
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.success-box h4 { font-weight: 700; font-size: 1.05rem; color: var(--black); margin-bottom: .35rem; }
+.success-box p { font-size: .875rem; color: var(--gray-mid); }
+
+/* ═══════════════════════════════════════
+   BANDEAU BAS HERO — Chiffres clés bleus
+═══════════════════════════════════════ */
+.stats-band {
+  background: var(--blue);
+  padding: 1.75rem 1.5rem;
+}
+.stats-band-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+}
+/* Texte de présentation */
+.stat-intro p {
+  font-size: .95rem; color: rgba(255,255,255,.9);
+  line-height: 1.65; max-width: 600px;
+}
+/* Groupe de stats */
+.stat-items {
+  display: flex; align-items: stretch; flex-shrink: 0;
+}
+.stat-item {
+  text-align: center; padding: .25rem 2rem;
+  border-right: 1px solid rgba(255,255,255,.25);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-weight: 700; font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--white); line-height: 1; display: block; margin-bottom: .3rem;
+}
+.stat-lbl {
+  font-size: .72rem; color: rgba(255,255,255,.75);
+  text-transform: uppercase; letter-spacing: .07em;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════
+   SECTION TITRE
+═══════════════════════════════════════ */
+.section-pill {
+  display: inline-block; background: var(--blue);
+  color: var(--white); font-weight: 700; font-size: .82rem;
+  padding: .35rem 1.1rem; border-radius: var(--r);
+  letter-spacing: .04em;
+}
+
+/* ═══════════════════════════════════════
+   TRUST BAR
+═══════════════════════════════════════ */
+.trust-bar {
+  background: var(--gray-light);
+  border-top: 1px solid var(--gray-border);
+  border-bottom: 1px solid var(--gray-border);
+  padding: 1rem 1.5rem;
+}
+.trust-bar-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: .45rem;
+  font-size: .8rem; font-weight: 600; color: var(--gray-text);
+}
+.trust-item svg { flex-shrink: 0; color: var(--blue); }
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 1.25rem; right: 1.25rem;
+  background: var(--black); color: var(--white);
+  padding: .7rem 1rem; border-radius: var(--r);
+  font-size: .85rem; font-weight: 600;
+  display: flex; align-items: center; gap: .5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  z-index: var(--z-toast);
+  transform: translateY(120%); transition: transform .25s ease;
+  max-width: 300px;
+}
+.toast.on { transform: translateY(0); }
+.toast-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--blue); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; font-size: .65rem;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.sr {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.sr.v { opacity: 1; transform: none; }
+.sr-d1 { transition-delay: .1s; }
+.sr-d2 { transition-delay: .2s; }
+.sr-d3 { transition-delay: .3s; }
+
+/* ── Section photos terrain ── */
+.terrain-section {
+  padding: 0;
+  overflow: hidden;
+}
+.terrain-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-height: 520px;
+}
+.terrain-fig {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+.terrain-fig img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
+}
+.terrain-fig:hover img {
+  transform: scale(1.03);
+}
+.terrain-fig figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 100%);
+  color: #fff;
+  padding: 2.5rem 1.75rem 1.25rem;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+.terrain-tag {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: .2rem .55rem;
+  border-radius: 3px;
+  margin-bottom: .5rem;
+}
+@media (max-width: 640px) {
+  .terrain-inner { grid-template-columns: 1fr; max-height: none; }
+  .terrain-fig img { height: 280px; }
+}
+
+/* ── Testament : radio mode d'envoi ── */
+.t-radio-group {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-top: .35rem;
+}
+.t-radio-opt {
+  flex: 1;
+  min-width: 120px;
+  cursor: pointer;
+}
+.t-radio-opt input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.t-radio-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  padding: .7rem 1rem;
+  border: 2px solid var(--gray-border);
+  border-radius: 6px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--gray-mid);
+  background: var(--white);
+  transition: border-color .2s ease, color .2s ease, background .2s ease;
+  cursor: pointer;
+  user-select: none;
+  min-height: 44px;
+}
+.t-radio-box svg {
+  flex-shrink: 0;
+  transition: stroke .2s ease;
+}
+.t-radio-opt input:focus-visible + .t-radio-box {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.t-radio-opt input:checked + .t-radio-box {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-light);
+}
+.t-radio-opt:hover .t-radio-box {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* ── Testament : fade-in des champs conditionnels ── */
+#t-fields-common,
+#t-fields-email,
+#t-fields-post,
+#t-fields-submit {
+  animation: fadeSlideDown .25s ease forwards;
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #t-fields-common, #t-fields-email, #t-fields-post, #t-fields-submit {
+    animation: none;
+  }
+}
+
+/* ── Testament : carte conseiller ── */
+.t-conseiller {
+  border: 1px solid var(--gray-border);
+  border-radius: 8px;
+  background: var(--blue-light);
+  padding: .85rem 1rem;
+  animation: fadeSlideDown .25s ease forwards;
+}
+.t-conseiller-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: .85rem;
+}
+.t-conseiller-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0,119,200,.12);
+  border: 1.5px solid var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.t-conseiller-text {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  font-size: .82rem;
+}
+.t-conseiller-text strong {
+  font-weight: 700;
+  color: var(--black);
+  font-size: .83rem;
+  line-height: 1.3;
+}
+.t-conseiller-text a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+.t-conseiller-text a:hover {
+  text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER MINIMAL
+═══════════════════════════════════════ */
+.footer-minimal {
+  background: var(--blue);
+  padding: 1rem 1.5rem;
+}
+.footer-minimal-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.footer-minimal-logo {
+  display: flex; align-items: center; gap: .6rem;
+  text-decoration: none;
+}
+.footer-minimal-logo img {
+  height: 32px; width: auto;
+  filter: brightness(0) invert(1);
+}
+.footer-minimal-logo span {
+  color: rgba(255,255,255,.85); font-size: .78rem; font-weight: 700;
+}
+.footer-minimal-legal {
+  font-size: .72rem; color: rgba(255,255,255,.55);
+  display: flex; gap: .75rem; flex-wrap: wrap; align-items: center;
+}
+.footer-minimal-legal a {
+  color: rgba(255,255,255,.55); text-decoration: underline;
+}
+.footer-minimal-legal a:hover { color: #fff; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 960px) {
+  /* Hero : photo visible en haut, formulaire sort du hero en dessous */
+  .hero {
+    min-height: 320px;
+    display: block;
+  }
+  .hero-inner {
+    display: block;
+    padding: 2.5rem 1.25rem 2rem;
+  }
+  /* Titre centré sur la photo */
+  .hero-text {
+    text-align: center;
+  }
+  .hero-h1 { font-size: clamp(36px, 8vw, 56px); }
+  /* Formulaire : sort du flux hero, fond blanc, pleine largeur */
+  .hero-form-wrap {
+    position: relative;
+    z-index: var(--z-overlay);
+    background: var(--white);
+    padding: 1.5rem 1.25rem;
+    min-height: auto;
+  }
+  .hero-form-card {
+    max-width: 520px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,.10);
+  }
+  .stats-band-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+  .stat-items { justify-content: flex-start; }
+}
+@media (max-width: 600px) {
+  .row2 { grid-template-columns: 1fr; }
+  .camp-tab { font-size: .65rem; padding: .45rem .3rem; }
+  .hero-form-wrap { padding: 1.25rem 1rem; }
+  .stats-band-inner { grid-template-columns: 1fr; }
+  .stat-item { padding: .4rem .85rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); }
+  .stat-item:last-child { border-bottom: none; }
+}
+
+  </style>
+</head>
+<body>
+
+<a class="skip" href="#formulaire">Aller au formulaire</a>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header" role="banner">
+  <div class="header-brand">
+    <a class="logo-link" href="#" aria-label="Handicap International Belgium — Accueil">
+      <img
+        class="logo-img"
+        src="Logo_Handicap_sans_baseline_Horiz_Bleu_Optim.webp"
+        alt="Handicap International Belgium — logo officiel"
+        height="56"
+        loading="eager"
+        style="width:auto"
+      >
+    </a>
+<a href="#formulaire" class="btn-don">Je fais un don</a>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" aria-labelledby="hero-h1">
+  <!-- image-optimization — lazy=eager sur hero, srcset en prod -->
+  <img
+    class="hero-img"
+    src="maxresdefault.webp"
+    alt="Enfant soutenu par Handicap International Belgium, souriant et entouré de mains bienveillantes"
+    loading="eager"
+    fetchpriority="high"
+  >
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <!-- Titre seul sur la photo -->
+    <div class="hero-text">
+      <div class="hero-h1-wrap">
+        <h1 id="hero-h1" class="hero-h1">
+          <span class="hl">Agir <strong>ensemble</strong></span><br>
+          <span class="hl">pour un monde <strong>inclusif</strong></span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Formulaire droite -->
+    <div class="hero-form-wrap" id="formulaire">
+      <div class="hero-form-card" id="main-card">
+        <div class="form-card-head">
+          <h2>Mobilisez-vous avec nous</h2>
+          <p>Choisissez votre mode d'engagement</p>
+        </div>
+        <div class="form-card-body">
+
+          <!-- Onglets campagne -->
+          <div class="camp-tabs" role="tablist" aria-label="Type de campagne">
+            <button
+              class="camp-tab on" role="tab"
+              id="t-quiz" aria-selected="true" aria-controls="p-quiz"
+              onclick="openTab('quiz')"
+            >
+              <!-- Heroicon: academic-cap -->
+              <svg class="camp-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+              Quiz
+            </button>
+            <button
+              class="camp-tab" role="tab"
+              id="t-petition" aria-selected="false" aria-controls="p-petition"
+              onclick="openTab('petition')"
+            >
+              <!-- Heroicon: pencil -->
+              <svg class="camp-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              Pétition
+            </button>
+            <button
+              class="camp-tab" role="tab"
+              id="t-testament" aria-selected="false" aria-controls="p-testament"
+              onclick="openTab('testament')"
+            >
+              <!-- Heroicon: heart -->
+              <svg class="camp-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+              Testament
+            </button>
+          </div>
+
+          <!-- ─── QUIZ ─── -->
+          <div id="p-quiz" class="camp-panel on" role="tabpanel" aria-labelledby="t-quiz">
+            <!-- Barre de progression -->
+            <div class="quiz-progress" aria-label="Progression">
+              <div class="quiz-prog-head">
+                <span id="q-label">Question 1 / 3</span>
+                <span id="q-pct">33%</span>
+              </div>
+              <div class="quiz-bar">
+                <div class="quiz-bar-fill" id="q-fill" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- Étape 1 -->
+            <div class="quiz-step on" id="qs1">
+              <p class="quiz-q">Combien de personnes vivent avec un handicap dans des zones de conflit ?</p>
+              <div class="choices" role="group" aria-label="Choisissez une réponse">
+                <button class="choice" onclick="pick(this,'qs1')" aria-pressed="false">
+                  <span class="choice-l">A</span> Environ 50 millions
+                </button>
+                <button class="choice" onclick="pick(this,'qs1')" aria-pressed="false">
+                  <span class="choice-l">B</span> Plus de 150 millions
+                </button>
+                <button class="choice" onclick="pick(this,'qs1')" aria-pressed="false">
+                  <span class="choice-l">C</span> 1 milliard de personnes
+                </button>
+              </div>
+              <button class="btn-primary" onclick="qNext(2)">Suivant</button>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="quiz-step" id="qs2">
+              <p class="quiz-q">Quelle est la principale cause de handicap acquis en zones de conflit ?</p>
+              <div class="choices" role="group" aria-label="Choisissez une réponse">
+                <button class="choice" onclick="pick(this,'qs2')" aria-pressed="false">
+                  <span class="choice-l">A</span> Les mines antipersonnel et restes explosifs
+                </button>
+                <button class="choice" onclick="pick(this,'qs2')" aria-pressed="false">
+                  <span class="choice-l">B</span> Les maladies chroniques non traitées
+                </button>
+                <button class="choice" onclick="pick(this,'qs2')" aria-pressed="false">
+                  <span class="choice-l">C</span> Les accidents de la route
+                </button>
+              </div>
+              <button class="btn-primary" onclick="qNext(3)">Dernière question</button>
+            </div>
+
+            <!-- Étape 3 -->
+            <div class="quiz-step" id="qs3">
+              <p class="quiz-q">Dans combien de pays HI est-elle présente aujourd'hui ?</p>
+              <div class="choices" role="group" aria-label="Choisissez une réponse">
+                <button class="choice" onclick="pick(this,'qs3')" aria-pressed="false">
+                  <span class="choice-l">A</span> 30 pays
+                </button>
+                <button class="choice" onclick="pick(this,'qs3')" aria-pressed="false">
+                  <span class="choice-l">B</span> 58 pays
+                </button>
+                <button class="choice" onclick="pick(this,'qs3')" aria-pressed="false">
+                  <span class="choice-l">C</span> 80 pays
+                </button>
+              </div>
+              <button class="btn-orange" onclick="qShowForm()">Voir mes résultats</button>
+            </div>
+
+            <!-- Étape form quiz (injectée) -->
+            <div class="quiz-step" id="qs-form"></div>
+          </div>
+
+          <!-- ─── PÉTITION ─── -->
+          <div id="p-petition" class="camp-panel" role="tabpanel" aria-labelledby="t-petition">
+            <div class="petition-counter" aria-live="polite" aria-label="Compteur de signatures">
+              <div>
+                <div class="pet-num" id="pet-n">0</div>
+                <div class="pet-prog-bar"><div class="pet-prog-fill" id="pet-f"></div></div>
+              </div>
+              <div class="pet-label">
+                <strong>signataires</strong>
+                Objectif : 25 000 — Rejoignez le mouvement.
+              </div>
+            </div>
+            <blockquote class="petition-quote">
+              <strong>Nous, soussignés,</strong> demandons l'inclusion systématique des personnes
+              handicapées dans toutes les réponses humanitaires d'urgence, en garantissant
+              leur accès aux soins, à l'information et aux décisions qui les concernent.
+            </blockquote>
+            <div id="form-petition">
+              <form onsubmit="doSubmit(event,'petition')" novalidate>
+                <div class="row2">
+                  <div class="fg">
+                    <label for="p-pr">Prénom <span class="req" aria-label="requis">*</span></label>
+                    <input type="text" id="p-pr" placeholder="Sophie" autocomplete="given-name" required>
+                  </div>
+                  <div class="fg">
+                    <label for="p-nm">Nom <span class="req">*</span></label>
+                    <input type="text" id="p-nm" placeholder="Lambert" autocomplete="family-name" required>
+                  </div>
+                </div>
+                <div class="fg">
+                  <label for="p-em">Email <span class="req">*</span></label>
+                  <input type="email" id="p-em" placeholder="sophie@email.com" autocomplete="email" required>
+                </div>
+                <div class="fg">
+                  <label for="p-cp">Code postal</label>
+                  <input type="text" id="p-cp" placeholder="1000" maxlength="4" inputmode="numeric">
+                </div>
+                <label class="rgpd-wrap">
+                  <input type="checkbox" required aria-required="true">
+                  <span class="rgpd-text">
+                    J'accepte le traitement de mes données par Handicap International Belgium
+                    (<a href="#" target="_blank" rel="noopener">vie privée</a>).<span class="req">*</span>
+                  </span>
+                </label>
+                <button type="submit" class="btn-primary">Signer la pétition</button>
+              </form>
+            </div>
+            <div class="success-box" id="suc-petition" role="alert">
+              <div class="success-ico" aria-hidden="true">
+                <!-- Heroicon: check -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h4>Merci pour votre signature !</h4>
+              <p>Votre engagement contribue à changer les politiques humanitaires.</p>
+            </div>
+          </div>
+
+          <!-- ─── TESTAMENT ─── -->
+          <div id="p-testament" class="camp-panel" role="tabpanel" aria-labelledby="t-testament">
+
+            <!-- Intro courte -->
+            <p style="font-size:.85rem;color:var(--gray-mid);line-height:1.55;margin-bottom:.9rem">
+              Un geste discret, confidentiel et sans engagement.<br>
+              Recevez gratuitement notre guide pour comprendre comment agir.
+            </p>
+
+            <div id="form-testament">
+              <form id="testament-form" novalidate>
+
+                <!-- Étape 1 : choix du mode d'envoi (logique Pelicano) -->
+                <div class="fg">
+                  <label>Je souhaite recevoir le guide par <span class="req">*</span></label>
+                  <div class="t-radio-group" role="group" aria-label="Mode d'envoi">
+                    <label class="t-radio-opt">
+                      <input type="radio" name="t-envoi" value="email" id="t-envoi-email">
+                      <span class="t-radio-box">
+                        <!-- Heroicon: envelope -->
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                        E-mail
+                      </span>
+                    </label>
+                    <label class="t-radio-opt">
+                      <input type="radio" name="t-envoi" value="courrier" id="t-envoi-post">
+                      <span class="t-radio-box">
+                        <!-- Heroicon: home -->
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        Courrier postal
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Champs communs (apparaissent après choix) -->
+                <div id="t-fields-common" style="display:none">
+                  <div class="fg">
+                    <label for="t-civ">Civilité <span class="req">*</span></label>
+                    <select id="t-civ" name="t-civ" required>
+                      <option value="" disabled selected>Sélectionner…</option>
+                      <option value="Madame">Madame</option>
+                      <option value="Monsieur">Monsieur</option>
+                    </select>
+                  </div>
+                  <div class="row2">
+                    <div class="fg">
+                      <label for="t-nm">Nom <span class="req">*</span></label>
+                      <input type="text" id="t-nm" placeholder="Dupont" autocomplete="family-name" required>
+                    </div>
+                    <div class="fg">
+                      <label for="t-pr">Prénom</label>
+                      <input type="text" id="t-pr" placeholder="Marie" autocomplete="given-name">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Champs EMAIL (conditionnels) -->
+                <div id="t-fields-email" style="display:none">
+                  <div class="fg">
+                    <label for="t-em">Email <span class="req">*</span></label>
+                    <input type="email" id="t-em" placeholder="marie@email.com" autocomplete="email">
+                  </div>
+                  <div class="fg">
+                    <label for="t-tel">Téléphone <span style="font-weight:400;text-transform:none;letter-spacing:0">(optionnel)</span></label>
+                    <input type="tel" id="t-tel" placeholder="+32 4xx xx xx xx" autocomplete="tel">
+                  </div>
+                </div>
+
+                <!-- Champs COURRIER (conditionnels) -->
+                <div id="t-fields-post" style="display:none">
+                  <div class="fg">
+                    <label for="t-adr">Adresse <span class="req">*</span></label>
+                    <input type="text" id="t-adr" placeholder="Rue de l'Église 12">
+                  </div>
+                  <div class="row2">
+                    <div class="fg">
+                      <label for="t-cp">Code postal <span class="req">*</span></label>
+                      <input type="text" id="t-cp" placeholder="1000" maxlength="4" inputmode="numeric">
+                    </div>
+                    <div class="fg">
+                      <label for="t-vl">Ville <span class="req">*</span></label>
+                      <input type="text" id="t-vl" placeholder="Bruxelles">
+                    </div>
+                  </div>
+                  <div class="fg">
+                    <label for="t-tel2">Téléphone <span style="font-weight:400;text-transform:none;letter-spacing:0">(optionnel)</span></label>
+                    <input type="tel" id="t-tel2" placeholder="+32 4xx xx xx xx" autocomplete="tel">
+                  </div>
+                </div>
+
+                <!-- RGPD + submit (apparaissent avec les champs) -->
+                <div id="t-fields-submit" style="display:none">
+                  <label class="rgpd-wrap">
+                    <input type="checkbox" id="t-rgpd" required aria-required="true">
+                    <span class="rgpd-text">
+                      Données utilisées uniquement pour l'envoi de documentation, jamais transmises à des tiers.
+                      (<a href="#" target="_blank" rel="noopener">Politique de confidentialité</a>)<span class="req">*</span>
+                    </span>
+                  </label>
+                  <button type="submit" class="btn-primary" id="t-submit-btn">
+                    Je demande le guide gratuitement
+                  </button>
+                </div>
+
+              </form>
+
+              <!-- Carte conseiller — inspiré de la carte Ruth (Pelicano) -->
+              <div class="t-conseiller" id="t-conseiller" style="display:none;margin-top:.9rem">
+                <div class="t-conseiller-inner">
+                  <div class="t-conseiller-avatar" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0077c8" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  </div>
+                  <div class="t-conseiller-text">
+                    <strong>Notre conseiller legs vous répondra personnellement</strong>
+                    <a href="tel:+3222801771">+32 (0)2 280 17 71</a>
+                    <a href="mailto:legs@handicap-international.be">legs@handicap-international.be</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Succès -->
+            <div class="success-box" id="suc-testament" role="alert">
+              <div class="success-ico" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h4>Merci pour votre démarche !</h4>
+              <p>Votre guide vous sera envoyé très prochainement. Notre conseiller legs vous contactera si vous le souhaitez.</p>
+            </div>
+          </div>
+
+        </div><!-- /form-card-body -->
+      </div><!-- /hero-form-card -->
+    </div><!-- /hero-form-wrap -->
+  </div><!-- /hero-inner -->
+</section>
+
+<!-- ══════════ BANDEAU BLEU — sous-titre + stats (signature site HI) ══════════ -->
+<div class="stats-band" aria-label="Présentation et chiffres clés">
+  <div class="stats-band-inner">
+    <!-- Sous-titre : blanc sur bleu, lisible, dans la charte -->
+    <div class="stat-intro">
+      <p>Handicap International Belgium soutient les personnes handicapées lors de conflits, de catastrophes et d'autres situations de vulnérabilité. L'ONG est là pour chacun et chacune à la même place, ayant les mêmes droits et les mêmes chances, avec ou sans handicap.</p>
+    </div>
+    <!-- Stats -->
+    <div class="stat-items">
+      <div class="stat-item">
+        <span class="stat-num" data-target="58">0</span>
+        <span class="stat-lbl">Pays d'intervention</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="480">0</span>
+        <span class="stat-lbl">Projets</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="3100000">0</span>
+        <span class="stat-lbl">Personnes soutenues</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TRUST BAR ══════════ -->
+<div class="trust-bar" aria-label="Garanties">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <!-- Heroicon: shield-check -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+      </svg>
+      Données sécurisées
+    </div>
+    <div class="trust-item">
+      <!-- Heroicon: globe -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 010 20"/>
+      </svg>
+      ONG reconnue depuis 1982
+    </div>
+    <div class="trust-item">
+      <!-- Heroicon: star -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      Prix Nobel de la Paix 1997
+    </div>
+    <div class="trust-item">
+      <!-- Heroicon: check-circle -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      Label don en confiance
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PHOTOS TERRAIN ══════════ -->
+<section class="terrain-section" aria-label="Sur le terrain">
+  <div class="terrain-inner">
+    <figure class="terrain-fig sr sr-d1">
+      <img src="2025-01-Gaza.jpg" alt="Mère et enfant à Gaza — accompagnement psychosocial HI" loading="lazy">
+      <figcaption>
+        <span class="terrain-tag">Gaza, 2025</span>
+        Soutien psychosocial aux familles déplacées par le conflit
+      </figcaption>
+    </figure>
+    <figure class="terrain-fig sr sr-d2">
+      <img src="2025-01-Syrie-v3.png" alt="Petite fille appareillée par HI en Syrie, avec une prothèse de jambe" loading="lazy">
+      <figcaption>
+        <span class="terrain-tag">Syrie, 2025</span>
+        Rééducation et appareillage prothétique pour les victimes de guerre
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER MINIMAL ══════════ -->
+<footer class="footer-minimal" role="contentinfo">
+  <div class="footer-minimal-inner">
+    <a class="footer-minimal-logo" href="#" aria-label="Handicap International Belgium — Accueil">
+      <img
+        src="Logo_Handicap_sans_baseline_Horiz_Bleu_Optim.webp"
+        alt="Handicap International Belgium"
+        height="28"
+        loading="lazy"
+        style="width:auto;filter:brightness(0) invert(1)"
+      >
+    </a>
+    <div class="footer-minimal-legal">
+      <span>© 2026 · BE 0451.610.664</span>
+      <a href="#">Mentions légales</a>
+      <a href="#">Protection des données</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ TOAST ══════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <div class="toast-dot" aria-hidden="true">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <span id="toast-msg">Action enregistrée</span>
+</div>
+
+<!-- ══════════ JS ══════════ -->
+<script>
+/* ── Onglets campagne ── */
+function openTab(id) {
+  document.querySelectorAll('.camp-tab').forEach(b => {
+    const active = b.id === 't-' + id;
+    b.classList.toggle('on', active);
+    b.setAttribute('aria-selected', active);
+  });
+  document.querySelectorAll('.camp-panel').forEach(p =>
+    p.classList.toggle('on', p.id === 'p-' + id)
+  );
+  if (id === 'petition') startPetCounter();
+}
+
+/* ── Quiz ── */
+function pick(btn, step) {
+  btn.closest('.choices').querySelectorAll('.choice').forEach(c => {
+    c.classList.remove('on');
+    c.setAttribute('aria-pressed', 'false');
+  });
+  btn.classList.add('on');
+  btn.setAttribute('aria-pressed', 'true');
+}
+
+function qNext(n) {
+  document.querySelector('.quiz-step.on').classList.remove('on');
+  document.getElementById('qs' + n).classList.add('on');
+  const pct = Math.round(n / 3 * 100);
+  document.getElementById('q-fill').style.width = pct + '%';
+  document.getElementById('q-fill').setAttribute('aria-valuenow', pct);
+  document.getElementById('q-pct').textContent = pct + '%';
+  document.getElementById('q-label').textContent = 'Question ' + n + ' / 3';
+}
+
+function qShowForm() {
+  document.getElementById('qs3').classList.remove('on');
+  document.getElementById('q-fill').style.width = '100%';
+  document.getElementById('q-pct').textContent = '✓';
+  document.getElementById('q-label').textContent = 'Quiz terminé !';
+
+  const el = document.getElementById('qs-form');
+  el.innerHTML = `
+    <div style="background:var(--blue-light);border-radius:var(--rc);padding:.85rem 1rem;margin-bottom:1rem;font-size:.85rem;color:var(--gray-text);line-height:1.6">
+      <strong style="color:var(--black)">Bravo !</strong> Vous avez répondu aux 3 questions.<br>
+      Laissez vos coordonnées pour recevoir vos résultats et nos ressources.
+    </div>
+    <form onsubmit="doSubmit(event,'quiz')" novalidate>
+      <div class="row2">
+        <div class="fg">
+          <label for="qf-pr">Prénom <span class="req">*</span></label>
+          <input type="text" id="qf-pr" placeholder="Marie" autocomplete="given-name" required>
+        </div>
+        <div class="fg">
+          <label for="qf-nm">Nom <span class="req">*</span></label>
+          <input type="text" id="qf-nm" placeholder="Dupont" autocomplete="family-name" required>
+        </div>
+      </div>
+      <div class="fg">
+        <label for="qf-em">Email <span class="req">*</span></label>
+        <input type="email" id="qf-em" placeholder="marie@email.com" autocomplete="email" required>
+      </div>
+      <div class="fg">
+        <label for="qf-cp">Code postal</label>
+        <input type="text" id="qf-cp" placeholder="1000" maxlength="4" inputmode="numeric">
+      </div>
+      <label class="rgpd-wrap">
+        <input type="checkbox" required aria-required="true">
+        <span class="rgpd-text">J'accepte le traitement de mes données par Handicap International Belgium
+        (<a href="#" target="_blank" rel="noopener">vie privée</a>).<span class="req">*</span></span>
+      </label>
+      <button type="submit" class="btn-orange">Recevoir mes résultats</button>
+    </form>
+    <div class="success-box" id="suc-quiz" role="alert">
+      <div class="success-ico" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h4>Merci !</h4>
+      <p>Vos résultats vous ont été envoyés par email.</p>
+    </div>
+  `;
+  el.classList.add('on');
+}
+
+/* ── Compteur pétition ── */
+let petDone = false;
+function startPetCounter() {
+  if (petDone) return; petDone = true;
+  const target = 18342, goal = 25000, dur = 1600;
+  const el = document.getElementById('pet-n');
+  const fill = document.getElementById('pet-f');
+  const t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const val = Math.round((1 - Math.pow(1 - p, 3)) * target);
+    el.textContent = val.toLocaleString('fr-BE');
+    fill.style.width = (val / goal * 100) + '%';
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+/* ── Testament : affichage conditionnel champs (logique Pelicano) ── */
+function toggleTestamentFields(mode) {
+  const common  = document.getElementById('t-fields-common');
+  const email   = document.getElementById('t-fields-email');
+  const post    = document.getElementById('t-fields-post');
+  const submit  = document.getElementById('t-fields-submit');
+  const card    = document.getElementById('t-conseiller');
+
+  /* Reset animation pour re-trigger */
+  [common, email, post, submit, card].forEach(el => {
+    el.style.display = 'none';
+    el.style.animation = 'none';
+  });
+
+  if (!mode) return;
+
+  /* Re-trigger animation en forçant reflow */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      [common, submit, card].forEach(el => {
+        el.style.animation = '';
+        el.style.display = 'block';
+      });
+      if (mode === 'email') {
+        email.style.animation = '';
+        email.style.display = 'block';
+        /* Vider les champs courrier pour ne pas soumettre des données masquées */
+        post.querySelectorAll('input').forEach(i => i.value = '');
+      } else {
+        post.style.animation = '';
+        post.style.display = 'block';
+        /* Vider les champs email masqués */
+        email.querySelectorAll('input').forEach(i => i.value = '');
+      }
+    });
+  });
+}
+
+/* Wire radio buttons testament */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('input[name="t-envoi"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      toggleTestamentFields(radio.value);
+    });
+  });
+
+  /* Testament form submit */
+  const tForm = document.getElementById('testament-form');
+  if (tForm) {
+    tForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const mode = tForm.querySelector('input[name="t-envoi"]:checked')?.value;
+      if (!mode) { toast('Veuillez choisir un mode d\'envoi.'); return; }
+
+      /* Validation des champs visibles uniquement */
+      let ok = true;
+      const visibleRequireds = tForm.querySelectorAll(
+        '#t-fields-common [required], #t-fields-email [required], #t-fields-post [required], #t-fields-submit [required]'
+      );
+      visibleRequireds.forEach(f => {
+        const hidden = f.closest('[style*="display:none"], [style*="display: none"]');
+        if (hidden) { f.classList.remove('error'); return; }
+        const bad = f.type === 'checkbox' ? !f.checked : !f.value.trim();
+        if (f.type !== 'checkbox') f.classList.toggle('error', bad);
+        if (bad) ok = false;
+      });
+      if (!ok) { toast('Veuillez remplir tous les champs obligatoires.'); return; }
+
+      const btn = document.getElementById('t-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Envoi…';
+      setTimeout(() => {
+        document.getElementById('form-testament').style.display = 'none';
+        document.getElementById('suc-testament').classList.add('on');
+        toast('Votre guide sera envoyé très prochainement !');
+      }, 600);
+    });
+  }
+});
+
+/* ── Soumission formulaire ── */
+function doSubmit(e, type) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+
+  /* Validation */
+  let ok = true;
+  form.querySelectorAll('[required]').forEach(f => {
+    const bad = f.type === 'checkbox' ? !f.checked : !f.value.trim();
+    if (f.type !== 'checkbox') f.classList.toggle('error', bad);
+    if (bad) ok = false;
+  });
+  if (!ok) { toast('Veuillez remplir tous les champs obligatoires.'); return; }
+
+  /* Disable button pendant traitement */
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+
+  setTimeout(() => {
+    /* Succès */
+    if (type === 'quiz') {
+      form.style.display = 'none';
+      document.getElementById('suc-quiz').classList.add('on');
+    } else {
+      document.getElementById('form-' + type).style.display = 'none';
+      document.getElementById('suc-' + type).classList.add('on');
+      if (type === 'petition') {
+        const n = document.getElementById('pet-n');
+        const v = parseInt(n.textContent.replace(/\s/g, '')) || 18342;
+        n.textContent = (v + 1).toLocaleString('fr-BE');
+      }
+    }
+    toast('Merci pour votre engagement !');
+  }, 600);
+}
+
+/* ── Toast ── */
+let toastT;
+function toast(msg) {
+  clearTimeout(toastT);
+  document.getElementById('toast-msg').textContent = msg;
+  const el = document.getElementById('toast');
+  el.classList.add('on');
+  toastT = setTimeout(() => el.classList.remove('on'), 4000);
+}
+
+/* ── Scroll reveal ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); revObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.sr').forEach(el => revObs.observe(el));
+
+/* ── Count-up animé ── */
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.target, dur = 1400, t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const val = Math.round((1 - Math.pow(1 - p, 3)) * target);
+      if (target >= 1000000) el.textContent = (val / 1000000).toFixed(1) + ' M+';
+      else if (target >= 1000) el.textContent = (val / 1000).toFixed(0) + ' k+';
+      else el.textContent = val + '+';
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => countObs.observe(el));
+</script>
+</body>
+</html>
