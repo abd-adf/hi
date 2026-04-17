@@ -154,7 +154,7 @@ a:hover { color: var(--blue-dark); }
   display: grid;
   grid-template-columns: 1fr 480px;
   gap: 2rem;
-  align-items: center;
+  align-items: start;
 }
 
 /* Texte gauche */
@@ -202,9 +202,11 @@ a:hover { color: var(--blue-dark); }
   line-height: 1.45;
 }
 
-/* hero-text — centré verticalement */
+/* hero-text — position fixe */
 .hero-text {
-  align-self: center;
+  position: sticky;
+  top: 0;
+  padding-top: 3rem;
 }
 
 
