@@ -261,8 +261,23 @@ a:hover { color: var(--blue-dark); }
 .camp-tab-icon { width: 18px; height: 18px; }
 
 /* Panneaux de campagne */
-.camp-panel { display: none; }
-.camp-panel.on { display: block; }
+.camp-panels-wrap {
+  position: relative;
+}
+.camp-panel {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  pointer-events: none;
+  transition: opacity .15s ease, visibility .15s ease;
+}
+.camp-panel.on {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+  pointer-events: auto;
+}
 
 /* ─── Inputs ─── */
 .fg { display: flex; flex-direction: column; gap: .28rem; margin-bottom: .8rem; }
@@ -873,6 +888,7 @@ a:hover { color: var(--blue-dark); }
             </button>
           </div>
 
+          <div class="camp-panels-wrap">
           <!-- ─── QUIZ ─── -->
           <div id="p-quiz" class="camp-panel on" role="tabpanel" aria-labelledby="t-quiz">
             <!-- Barre de progression -->
@@ -1130,6 +1146,7 @@ a:hover { color: var(--blue-dark); }
             </div>
           </div>
 
+          </div><!-- /camp-panels-wrap -->
         </div><!-- /form-card-body -->
       </div><!-- /hero-form-card -->
     </div><!-- /hero-form-wrap -->
