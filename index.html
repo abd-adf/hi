@@ -149,8 +149,8 @@ a:hover { color: var(--blue-dark); }
 /* Contenu hero */
 .hero-inner {
   position: relative; z-index: var(--z-overlay);
-  max-width: 1200px; margin: 0 auto; width: 100%;
-  padding: 5.5rem 1.5rem;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+  padding: 5.5rem 3rem 5.5rem 1.5rem;
   display: grid;
   grid-template-columns: 1fr 480px;
   gap: 4rem;
@@ -229,7 +229,7 @@ a:hover { color: var(--blue-dark); }
 .form-card-head p {
   font-size: .82rem; color: rgba(255,255,255,.8); line-height: 1.4;
 }
-.form-card-body { padding: 1.25rem 1.4rem; }
+.form-card-body { padding: 1.25rem 1.4rem; min-height: 420px; }
 
 /* Onglets campagne */
 .camp-tabs {
@@ -260,9 +260,10 @@ a:hover { color: var(--blue-dark); }
 }
 .camp-tab-icon { width: 18px; height: 18px; }
 
-/* Panneaux de campagne */
+/* Panneaux de campagne — hauteur fixe, zéro reflow */
 .camp-panels-wrap {
   position: relative;
+  min-height: 420px;
 }
 .camp-panel {
   visibility: hidden;
@@ -275,7 +276,7 @@ a:hover { color: var(--blue-dark); }
 .camp-panel.on {
   visibility: visible;
   opacity: 1;
-  position: relative;
+  position: absolute;
   pointer-events: auto;
 }
 
